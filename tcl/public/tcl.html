@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UFT-8">
+		<title>CONTROL ILUMINACIÓN</title>
+		<link rel="stylesheet" href="style/style.css"/> 
+		<script src="js/socket.io.js"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="js/Chart.min.js"></script>
+		<script src="js/utils.js"></script>
+	</head>
+	<body>
+		<img class="reduce" src="images/dafiti.png">
+		<h1 class="tc">SISTEMA DE CONTROL DE ILUMINACIÓN</h1>
+		<div class="tab">
+		  <button class="tablinks" onclick="openTab('Tableros')">Tableros</button>
+		  <button class="tablinks" onclick="openTab('Eventos')">Gráficos</button>
+		  <button class="tablinks" onclick="logout()">Salir</button>
+		</div>
+		<div id="Tableros" class="tabcontent">
+			<style data="cambio" type="text/css"></style>
+			<label class="switch">
+				<input type="checkbox" id="lock" onchange="cambioLock()">
+				<span class="slider round"></span>
+			</label>
+			
+		  <h3 class="tc"><u>TABLERO N°1</u></h3>
+			<div class="centerAlto ">
+				<button disabled class="button gray" id="onT1" onclick="onTx(this.id)"> </button>
+			</div>
+			<div class="centerBajo ">
+				<button disabled class="button gray" id="offT1" onclick="offTx(this.id)"> </button>
+			</div>
+			<br>
+			<div class="tc">
+				<button disabled class="buttonS oliva"></button> Click para encender
+				<button disabled class="buttonS rojo"></button> Apagado	
+				<button disabled class="buttonS verde"></button> Encendido
+				<button disabled class="buttonS burdeo"></button> Click para apagar
+				<button disabled class="buttonS gray"></button> Sin información
+			</div>
+			<p style="text-align: right;"><b>Powered by QB Servicios</b></p>
+		</div>
+		<div id="Eventos" class="tabcontent" style="display:none">
+			<div style="width:50%"> </div>
+				<canvas id="canvas" style="width:50%;height:320px;"></canvas>
+			<br>
+			<select id="myselect" onchange="f()">
+					<option value="minute">minute</option>
+					<option value="hour">hour</option>
+					<option value="day">Días</option>
+					<option value="week">Semanas</option>
+					<option value="month">Meses</option>
+					<option value="quarter">Trimestres</option>
+					<option value="year">Años</option>
+			</select>
+			<br>
+			<p style="text-align: right;"><b>Powered by QB Servicios</b></p> 
+		</div>
+		<script>
+		var p = false;
+		var mstyle = document.querySelector('[data="cambio"]');
+		function cambioLock(){ //alert(p);
+			document.getElementById("lock");
+			p = !p;
+			var x = document.getElementsByClassName("button");
+			for(var i=0; i<x.length; i++){ x[i].disabled = !p; }
+				if(p){mstyle.innerHTML = ".slider:before {background: url('./images/open.png') no-repeat;}";}
+				else {mstyle.innerHTML = ".slider:before {background: url('./images/locked.png') no-repeat;}";}
+		}
+		</script>
+		<script src="js/tcl.js"></script>
+	</body>
+</html>
+
+
+
+

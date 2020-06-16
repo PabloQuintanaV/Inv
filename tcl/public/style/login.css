@@ -1,0 +1,48 @@
+.tc{text-align: center;}
+.reduce{ 
+	height:60px ; 
+	width: 140px;
+	z-index: -1;
+}
+.login-form {
+	width: 300px;
+	margin: 0 auto;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+.login-form h1 {
+	text-align: center;
+	color: #4d4d4d;
+	font-size: 24px;
+	padding: 20px 0 20px 0;
+}
+.login-form input[type="password"],
+.login-form input[type="text"] {
+	width: 100%;
+	padding: 15px;
+	border: 1px solid #dddddd;
+	margin-bottom: 15px;
+	box-sizing:border-box;
+}
+.login-form input[type="submit"] {
+	width: 100%;
+	padding: 15px;
+	background-color: #535b63;/* For browsers not support gradient*/
+	border: 0;
+	border-radius: 3%;
+	box-sizing: border-box;
+	cursor: pointer;
+	font-weight: bold;
+	color: #ffffff;
+	background-image: radial-gradient(gray, black);
+	box-shadow : 10px 10px 5px gray;
+}
+.loin {
+	position: absolute;
+	box-sizing:border-box;
+	left: 25%;
+	top: 25%;
+	width: 100%;
+	font-size: 18px;
+	color: red;
+	background-color : #FFF;
+}

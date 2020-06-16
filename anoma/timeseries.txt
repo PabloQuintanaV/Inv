@@ -1,0 +1,10 @@
+https://medium.com/datos-y-ciencia/introducci%C3%B3n-al-an%C3%A1lisis-de-series-cronol%C3%B3gicas-con-python-y-pandas-99fc8d4bb56d
+Introducción al Análisis de Series Cronológicas con Python y Pandas
+https://relopezbriega.github.io/blog/2016/09/26/series-de-tiempo-con-python/
+Series de tiempo con Python
+https://www.aprendemachinelearning.com/analisis-exploratorio-de-datos-pandas-python/
+
+Cyclic association rules reseachgate
+We study the problem of discovering association rules that display regular cyclic variation over time.
+ For example, if we compute association rules over monthly sales data, we may observe seasonal 
+variation where certain rules are true at approximately the same month each year.

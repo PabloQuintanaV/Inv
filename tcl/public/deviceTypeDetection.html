@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- Every version of your webapp should include a list of all
+         versions. -->
+    <link rel="alternate" href="desktop.html" id="desktop"
+        media="only screen and (touch-enabled: 0)">
+    <link rel="alternate" href="mobile.html" id="phone" 
+        media="only screen and (max-device-width: 640px)">
+    <link rel="alternate" href="http://tablet.foo.com" id="tablet"
+        media="only screen and (min-device-width: 641px)">
+
+    <!-- Viewport is very important, since it affects results of media
+         query matching. -->
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place the JS in the head to load as little of the page as
+         possible before (potentially) redirecting.
+          -->
+    <script src="js/device.js"></script>
+    
+  </head>
+  <body>
+    <!-- Your DOM here -->
+
+    <!-- Include a way to manually switch between device types -->
+    <footer>
+      <ul>
+        <li><a href="?device=desktop">Desktop</a></li>
+        <li><a href="?device=tablet">Tablet</a></li>
+        <li><a href="?device=phone">Phone</a></li>
+      </ul>
+    </footer>
+  </body>
+</html>

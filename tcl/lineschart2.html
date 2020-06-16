@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Time Scale Point Data</title>
+	<script src="./node_modules/moment/min/moment.min.js"></script>
+	<script src="./node_modules/chart.js/dist/Chart.min.js"></script>
+	<script src="./utils.js"></script>
+	<style>
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
+	<style>
+.slidecontainer {
+  width: 50%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #000000;
+  outline: none;
+  opacity: 0.9;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 0.8;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 28px;
+  background: #4CAF50;
+  cursor: pointer;
+  border : 1px solid blue;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 28px;
+  background: #4C9F50;
+  cursor: pointer;
+  border : 1px solid blue;
+}
+
+/****tooltip*****/
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+<h1>test de input range y valores</h1>
+	
+
+<div> </div>
+<div class="tooltip">
+  <span class="tooltiptext" id="demo" >Tooltip text</span>
+  <div class="slidecontainer">
+	<input type="range" id="ran" min="0" max="100"  steps="1" value="75" class="slider">
+</div>
+</div> 
+
+	<hr>
+	<br>
+	<div style="width:75%;">
+		<canvas id="canvas"></canvas>
+	</div>
+	<br>
+	  <select id="myselect" onchange="f()">
+	    <option value="day">Días</option>
+	    <option value="week">Semanas</option>
+	    <option value="month">Meses</option>
+	    <option value="quarter">Trimestres</option>
+	    <option value="year">Años</option>
+	  </select>
+	<br>
+	
+	
+	<button id="randomizeData">Randomize Data</button>
+	<button id="addData">Add Data</button>
+	<button id="removeData">Remove Data</button>
+	<script>
+	  function f(){ var x=document.getElementById("myselect").value;
+	    myLine.options.scales.xAxes[0].time.unit = x;
+	     myLine.update();
+	    }
+	  
+	X=[new Date("1/2/2020"),new Date("1/5/2020"),new Date("2/12/2020"),new Date("2/22/2020"),
+	 new Date("3/20/2020"),new Date("3/27/2020"),new Date("4/2/2020"),new Date("4/12/2020"), 
+	 new Date("5/12/2020"),new Date("5/20/2020"),new Date("6/1/2020"),new Date("6/8/2020"), 
+	 new Date("6/27/2020"),new Date("6/30/2020"),new Date("7/2/2020"),new Date("7/22/2020"), 
+	 new Date("8/2/2020"),new Date("8/22/2020"),new Date("9/20/2020"),new Date("9/28/2020"), 
+	 new Date("10/2/2020"),new Date("10/22/2020"),new Date("12/2/2020"),new Date("12/29/2020")];
+	 Y=[12,15,17,22,8,9,6,14,34,24,12,8,21,15,19,11,33,17,4,25,12,18,21,24];
+	 user=['dos','dos','cuatro','dos','cuatro','dos','cuatro','uno','uno',
+		      'cuatro','tres','dos','uno','uno','cuatro','dos','dos','uno',
+		      'tres','tres','cuatro','dos','dos','uno'];
+	 
+		a=[];
+		for (var i = 0; i <= 100; i++) {
+			q = moment().add(i,"day");
+			a.push(q.format("DD/MM/YYYY"));
+			// a.push("AA"+String(i));
+		};
+		var slider = document.getElementById("ran");
+		var output = document.getElementById("demo");
+		output.innerHTML = a[parseInt(slider.value)];
+		//alert("ee" + document.getElementById("ran").value);
+
+		slider.oninput = function() { 
+			output.innerHTML = a[parseInt(this.value)]; }
+
+		function newDate(days) {
+			return moment().add(days, 'd').toDate();
+		}
+
+		function newDateString(days) {
+			return moment().add(days, 'd').format();
+		}
+		var laimagen = new Image();
+		laimagen.src = "./public/images/locked.png";
+		var color = Chart.helpers.color;
+		var config = {
+			type: 'line',
+			data: {
+				 labels: X,
+				datasets: [{
+					//pointRadius : [10,10,10,10,10,10,10,10,10,10,10],
+					pointHoverRadius:20,
+					pointHitRadius : 25,
+					pointStyle: ['rect','triangle','circle',laimagen],
+					pointBackgrounColor: "rbga(0,191,255)",
+					label: 'Dataset QB',
+					backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+					borderColor: window.chartColors.red,
+					fill: true, //false,
+					steppedLine: true,
+					data: Y,
+				}]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Chart.js Time Point Data'},
+				tooltips: {
+					mode: 'index',
+					callbacks: {
+					// Use callback to show in the tooltip
+					    footer: function(tooltipItems, data) {
+					      var usuario = 0;
+					      tooltipItems.forEach(function(tooltipItem) {
+					      usuario=user[tooltipItem.index]; //sum+= data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+					      });
+					      return 'Usuario: ' + usuario;
+					    },
+					},
+					footerFontStyle: 'normal'
+				      },
+				scales: {
+					xAxes: [{
+						type: 'time',
+						time: {unit: 'day'},
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'Fecha'
+						},
+						ticks: {
+							major: {
+								fontStyle: 'bold',
+								fontColor: '#FF0000'
+							}
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'value'
+						}
+					}]
+				}
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+		};
+
+		document.getElementById('randomizeData').addEventListener('click', function() {
+			config.data.datasets.forEach(function(dataset) {
+				d = new Date();
+				function newFecha(){
+					d = new Date(d.getTime() + Math.random()*10* 86400000);
+					return d;
+				};
+
+				dataset.data.forEach(function(dataObj) {
+					dataObj.y = Math.round(Math.random());//randomScalingFactor();
+					dataObj.x = newFecha();
+				});
+			});
+
+			window.myLine.update();
+		});
+		document.getElementById('addData').addEventListener('click', function() {
+			if (config.data.datasets.length > 0) {
+				config.data.datasets[0].data.push({
+					x: newDateString(config.data.datasets[0].data.length + 2),
+					y: randomScalingFactor()
+				});
+				config.data.datasets[1].data.push({
+					x: newDate(config.data.datasets[1].data.length + 2),
+					y: randomScalingFactor()
+				});
+
+				window.myLine.update();
+			}
+		});
+
+		document.getElementById('removeData').addEventListener('click', function() {
+			config.data.datasets.forEach(function(dataset) {
+				dataset.data.pop();
+			});
+
+			window.myLine.update();
+		});
+	</script>
+</body>
+
+</html>

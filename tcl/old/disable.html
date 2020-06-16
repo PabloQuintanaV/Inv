@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<button>Try it</button>
+<input type="checkbox" onchange="f()" />
+<script>
+var p = true;
+function f() {
+  document.querySelector("button").disabled = p;
+  p = !p;}
+
+</script>
+</body>
+</html>

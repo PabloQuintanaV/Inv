@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<h1>hEllowww </h1>
+		<button onclick="s('/test/',{name:'john'})"> SEND </button>
+		
+		<script>
+		function s(path, params, method='post'){
+			alert("in");
+			const form = document.createElement('form');
+			form.id ='idform';
+			form.method  = 'post';
+			form.path = path;
+			for(const key in params) {	
+				if(params.hasOwnProperty(key)){ 
+					const hiddenField = document.createElement('input');
+					hiddenField.type = "hidden";
+					hiddenField.name = key;
+					hiddenField.value = params[key];
+					form.appendChild(hiddenField);
+					alert("key :" + key);
+				}
+			}
+			document.body.appendChild(form);
+			button = document.createElement("input");
+			button.setAttribute('id','idbutton');
+			button.setAttribute('type','submit');
+			form.appendChild(button);
+			x=document.getElementById("idform");
+			y=document.getElementById("idbutton");
+			console.log("form",x.id, x.type); 
+			console.log("button",y.id, y.type);
+			form.submit();
+			alert("post");
+		} 
+		</script>
+	</body>
+</html>
